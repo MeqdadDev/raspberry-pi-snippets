@@ -1,0 +1,7 @@
+numpy
+opencv-python
+pillow
+pytesseract
+pyttsx3
+teachable-machine-lite
+tflite-runtime
