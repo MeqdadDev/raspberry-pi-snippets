@@ -23,17 +23,19 @@ label = None
 confidence = 0
 
 def extract_ocr(img):
-    _, binary_image = cv.threshold(img, 0, 255, cv.THRESH_BINARY + cv.THRESH_OTSU)
-    cv.imshow("Binary", binary_image)
+    _, binary_image = cv.threshold(img, 5, 250, cv.THRESH_BINARY)
+    # cv.imshow("Binary", binary_image)
     return ocr.image_to_string(binary_image)
 
-def say_label(label, id):
+def say_label(label):
     tts.say(label)
     tts.runAndWait()
 
 while True:
     ret, frame = cap.read()
     if ctr_frm > 20:
+        if "exit" in str(extract_ocr(frame)).lower():
+            say_label("Go to Exit")
         cv.imwrite(image_file_name, frame)
         results = tm_model.classify_frame(image_file_name)
         print("Label:", results["label"])
@@ -49,7 +51,7 @@ while True:
         cv.putText(frame, f"You see:{label.capitalize()}", (15,40), cv.FONT_ITALIC, 1, (0, 255, 0), 2)
 
         if (ctr_tts > 140):
-            say_label(label, id)
+            say_label(label)
             ctr_tts=0
         else:
             ctr_tts+=1
