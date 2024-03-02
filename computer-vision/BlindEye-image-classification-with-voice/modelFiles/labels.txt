@@ -1,4 +1,5 @@
-0 Plant
-1 Remote
-2 CUP
-3 Nothing
+0 Background
+1 Gray
+2 Black
+3 Chocolate
+4 Apple
